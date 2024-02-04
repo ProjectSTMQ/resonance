@@ -13,7 +13,7 @@ app.use(express.json());
 // const testController = require('./controllers/TestController');
 
 // Routes
-const testRoute = require('./routes/Test');
+const testRoute = require('./routes/TestRoute');
 const authRoute = require('./routes/AuthRoute');
 
 app.use('/tests', testRoute);

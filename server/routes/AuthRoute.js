@@ -6,7 +6,8 @@ router.post('/register', async (req, res) => {
         await authController.createUser(req.body);
         res.status(201).send();
     } catch (err) {
-        res.status(500).send(err.message);
+        console.log(err.message)
+        res.status(400).send();
     }
 });
 

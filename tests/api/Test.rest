@@ -1,0 +1,26 @@
+# Test API requests for CRUD operations on the Test collection
+
+### Post Request
+POST http://localhost:5000/tests/create
+Content-Type: application/json
+
+{
+    "name": "John",
+    "age": 20
+}
+
+### Get Request
+GET http://localhost:5000/tests/getAll
+
+### Put Request
+PUT http://localhost:5000/tests/update/65bfcf8c92565620d51c1c47
+Content-Type: application/json
+
+{
+    "name": "Matt",
+    "age": 25
+}
+
+
+### Delete Request
+DELETE http://localhost:5000/tests/delete/65bfd576ab89159f46674c92

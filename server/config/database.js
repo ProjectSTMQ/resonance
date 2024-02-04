@@ -18,7 +18,17 @@ const disconnectFromDatabase = async () => {
     }
 };
 
+const createCollection = async (collectionName) => {
+    try {
+        await mongoose.connection.createCollection(collectionName);
+        console.log(`Collection '${collectionName}' created successfully`);
+    } catch (err) {
+        console.error(`Error creating collection '${collectionName}':`, err);
+    }
+};
+
 module.exports = {
     connectToDatabase,
-    disconnectFromDatabase
+    disconnectFromDatabase,
+    createCollection
 };

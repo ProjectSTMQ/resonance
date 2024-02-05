@@ -18,7 +18,11 @@ router.post('/login', async (req, res) => {
         if (await authController.loginUser(req.body)) {
             // save session id in database and set it as a cookie
             const sessionId = uuidv4();
-            await sessionController.createSession({ sessionId, username: req.body.username });
+            await sessionController.createSession({ 
+                sessionId: sessionId,
+                username: req.body.username,
+                lastAccessed: new Date()
+            });
 
             res.cookie('sessionId', sessionId);
             res.status(200).send();
@@ -33,6 +37,9 @@ router.post('/login', async (req, res) => {
 router.post('/logout', async (req, res) => {
     // still needs to be implemented
     // TODO: delete session id from database
+    await sessionController.deleteSession(req.cookies.sessionId);
+    res.clearCookie('sessionId');
+    res.status(200).json({ message: 'You are logged out.' });
 });
 
 module.exports = router;

@@ -3,7 +3,7 @@ const conversationController = require('../controllers/ConversationController');
 const { authUser } = require('../middlewares/Auth');
 
 // create a new conversation
-router.post('/', async (req, res) => {
+router.post('/', authUser, async (req, res) => {
     try {
         const result = await conversationController.createConversation(req.body);
         res.json(result);

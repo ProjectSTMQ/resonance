@@ -5,7 +5,8 @@ const sessionSchema = new mongoose.Schema({
         type: String,
         unique: true
     },
-    username: String
+    username: String,
+    lastAccessed: Date
 });
 
 const SessionModel = mongoose.model('sessions', sessionSchema);

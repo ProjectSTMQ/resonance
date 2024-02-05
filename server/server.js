@@ -20,7 +20,6 @@ app.use(cookieParser());
 const authRoute = require('./routes/AuthRoute');
 const conversationRoute = require('./routes/ConversationRoute');
 const messageRoute = require('./routes/MessageRoute');
-
 // app.use('/tests', testRoute);
 app.use('/auth', authRoute);
 app.use('/conversations', conversationRoute);
@@ -51,4 +50,5 @@ server.listen(PORT, () => {
     db.createCollection('conversations');
     db.createCollection('messages');
     db.createCollection('sessions');
+    db.createTTLIndex('sessions', 'lastAccessed', 1800); // Expire after 30 minutes
 });

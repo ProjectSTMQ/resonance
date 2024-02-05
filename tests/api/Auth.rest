@@ -1,4 +1,4 @@
-### Post Request
+### Register an account
 POST http://localhost:5000/auth/register
 Content-Type: application/json
 
@@ -7,11 +7,11 @@ Content-Type: application/json
     "password": "password"
 }
 
-### Post Request
+### Login, this will return a sessionId cookie
 POST http://localhost:5000/auth/login
 Content-Type: application/json
 
 {
     "username": "John",
-    "password": "passwordasdasd"
+    "password": "password"
 }

@@ -4,10 +4,10 @@ function Register() {
     return (
         <>
         <section className="register-page">
-            <section>
+            <section className="background">
                 <div className="form-container">
                     <div className="homelink">
-                        <Link to="/">Home</Link>
+                        <Link to="/">Back to Home</Link>
                     </div>
                     <div className="form">
                         <form>
@@ -20,6 +20,10 @@ function Register() {
                                 <input type="password" required />
                                 <label>Password</label>
                             </div>
+                            <div className="inputbox">
+                                <input type="password" required />
+                                <label>Confirm Password</label>
+                            </div>
                             {/* <div className="forget">
                                 <label>
                                     <input type="checkbox" />
@@ -30,7 +34,7 @@ function Register() {
                             <button>Register</button>
                             <div className="login">
                                 <p>
-                                    Already have an account? <Link to="/auth/login">Log In</Link>
+                                    Already have an account? <Link to="/login">Log In</Link>
                                 </p>
                             </div>
                         </form>

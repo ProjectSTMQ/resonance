@@ -4,10 +4,10 @@ function Login() {
     return (
         <>
         <section className="login-page">
-            <section>
+            <section className="background">
                 <div className="form-container">
                     <div className="homelink">
-                        <Link to="/">Home</Link>
+                        <Link to="/">Back to Home</Link>
                     </div>
                     <div className="form">
                         <form>
@@ -30,7 +30,7 @@ function Login() {
                             <button>Log In</button>
                             <div className="register">
                                 <p>
-                                    Don't have an account? <Link to="/auth/register">Register</Link>
+                                    Don't have an account? <Link to="/register">Register</Link>
                                 </p>
                             </div>
                         </form>

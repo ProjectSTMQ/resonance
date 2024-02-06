@@ -8,12 +8,12 @@ const cookieParser = require('cookie-parser');
 const server = require('http').createServer(app);
 // const WebSocket = require('ws');
 // const wss = new WebSocket.Server({ server });
-// const path = require('path');
+const path = require('path');
 
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.static(path.join('../client', 'build'))); // Connect react app build
+app.use(express.static(path.join('../client', 'dist'))); // Connect react app build - run `npm run build` in client folder
 
 // Routes
 // const testRoute = require('./routes/TestRoute');

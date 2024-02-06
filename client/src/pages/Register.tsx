@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const API_URL = 'http://localhost:5000';
 
 function Register() {
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,6 +31,7 @@ function Register() {
             setIsPending(false);
             if (res.status === 201) {
                 console.log('Registration successful');
+                navigate('/login');
             } else {
                 console.log('Registration failed');
             }

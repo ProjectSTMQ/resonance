@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const API_URL = 'http://localhost:5000';
 
 function Login() {
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isPending, setIsPending] = useState(false);
@@ -22,6 +24,7 @@ function Login() {
             setIsPending(false);
             if (res.status === 200) {
                 console.log('Login successful');
+                navigate('/');
             } else {
                 console.log('Login failed');
             }
@@ -62,8 +65,8 @@ function Login() {
                                 </label>
                                 <a href="#">Forgot Password</a>
                             </div> */}
-                            { !isPending && <button>Register</button>}
-                            { isPending && <button disabled>Registering...</button>}
+                            { !isPending && <button>Log In</button>}
+                            { isPending && <button disabled>Logging In...</button>}
                             <div className="register">
                                 <p>
                                     Don't have an account? <Link to="/register">Register</Link>

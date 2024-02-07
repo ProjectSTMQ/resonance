@@ -10,12 +10,12 @@ import http from 'http';
 const server = http.createServer(app);
 // const WebSocket = require('ws');
 // const wss = new WebSocket.Server({ server });
-import path from 'path';
+// import path from 'path';
 
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join('../client', 'dist'))); // Connect react app build - run `npm run build` in client folder
+// app.use(express.static(path.join('../client', 'dist'))); // Connect react app build - run `npm run build` in client folder
 
 // Routes
 // const testRoute = require('./routes/TestRoute');

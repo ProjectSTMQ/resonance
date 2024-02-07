@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const conversationSchema = new mongoose.Schema({
     // conversationId: mongoose.ObjectId,
@@ -10,4 +10,4 @@ const conversationSchema = new mongoose.Schema({
 
 const ConversationModel = mongoose.model('conversations', conversationSchema);
 
-module.exports = ConversationModel;
+export default ConversationModel;

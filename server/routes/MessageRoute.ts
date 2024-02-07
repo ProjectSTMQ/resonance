@@ -1,5 +1,7 @@
-const router = require('express').Router();
-const messageController = require('../controllers/MessageController');
+import express from 'express';
+import messageController from '../controllers/MessageController';
+
+const router = express.Router();
 
 // send a new message in a conversation
 router.post('/:conversationId', async (req, res) => {
@@ -26,4 +28,4 @@ router.delete('/:messageId', async (req, res) => {
     // TODO, lower priority
 });
 
-module.exports = router;
+export default router;

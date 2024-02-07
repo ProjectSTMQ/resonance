@@ -1,14 +1,16 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-require('dotenv').config();
-const db = require('./config/database');
+import dotenv from 'dotenv';
+dotenv.config();
+import db from './config/database';
 const PORT = process.env.PORT;
-const cookieParser = require('cookie-parser');
+import cookieParser from 'cookie-parser';
 
-const server = require('http').createServer(app);
+import http from 'http';
+const server = http.createServer(app);
 // const WebSocket = require('ws');
 // const wss = new WebSocket.Server({ server });
-const path = require('path');
+import path from 'path';
 
 // Middlewares
 app.use(express.json());
@@ -17,9 +19,9 @@ app.use(express.static(path.join('../client', 'dist'))); // Connect react app bu
 
 // Routes
 // const testRoute = require('./routes/TestRoute');
-const authRoute = require('./routes/AuthRoute');
-const conversationRoute = require('./routes/ConversationRoute');
-const messageRoute = require('./routes/MessageRoute');
+import authRoute from './routes/AuthRoute';
+import conversationRoute from './routes/ConversationRoute';
+import messageRoute from './routes/MessageRoute';
 // app.use('/tests', testRoute);
 app.use('/auth', authRoute);
 app.use('/conversations', conversationRoute);

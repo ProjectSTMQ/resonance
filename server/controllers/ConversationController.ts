@@ -1,6 +1,6 @@
-const ConversationModel = require('../models/Conversation');
+import ConversationModel from '../models/Conversation';
 
-const createConversation = async (data) => {
+const createConversation = async (data: any) => {
     if(data.participants.length === 2){
         data.type = "direct";
     } else {
@@ -12,11 +12,11 @@ const createConversation = async (data) => {
     return conversation;
 };
 
-const getConversationsByUsername = async (username) => {
+const getConversationsByUsername = async (username: string) => {
     return await ConversationModel.find({ participants: username });
 };
 
-module.exports = {
+export default {
     createConversation,
     getConversationsByUsername
 };

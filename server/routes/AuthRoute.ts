@@ -1,14 +1,18 @@
-const router = require('express').Router();
-const authController = require('../controllers/AuthController');
-const sessionController = require('../controllers/SessionController');
-const uuidv4 = require('uuid').v4;
+import express from 'express';
+import authController from '../controllers/AuthController';
+import sessionController from '../controllers/SessionController';
+import { v4 as uuidv4 } from 'uuid';
+
+const router = express.Router();
 
 router.post('/register', async (req, res) => {
     try {
         await authController.createUser(req.body);
         res.status(201).send();
-    } catch (err) {
-        console.log(err.message)
+    } catch (err: unknown) {
+        if(err instanceof Error){
+            console.log(err.message)
+        }
         res.status(400).send();
     }
 });
@@ -29,8 +33,10 @@ router.post('/login', async (req, res) => {
         } else {
             res.status(401).send();
         }
-    } catch (err) {
-        res.status(500).send(err.message);
+    } catch (err: unknown) {
+        if(err instanceof Error){
+            res.status(500).send(err.message);
+        }
     }
 });
 
@@ -42,4 +48,4 @@ router.post('/logout', async (req, res) => {
     res.status(200).json({ message: 'You are logged out.' });
 });
 
-module.exports = router;
+export default router;

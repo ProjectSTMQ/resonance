@@ -1,6 +1,6 @@
 import express from 'express';
-import authController from '../controllers/AuthController';
-import sessionController from '../controllers/SessionController';
+import authController from '../../controllers/AuthController';
+import sessionController from '../../controllers/SessionController';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();

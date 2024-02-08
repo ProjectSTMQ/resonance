@@ -1,6 +1,6 @@
 import express from 'express';
-import conversationController from '../controllers/ConversationController';
-import { authUser } from '../middlewares/Auth';
+import conversationController from '../../controllers/ConversationController';
+import { authUser } from '../../middlewares/Auth';
 
 const router = express.Router();
 

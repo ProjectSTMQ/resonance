@@ -1,5 +1,5 @@
 ### Create a new conversation
-POST http://localhost:5000/conversations
+POST http://localhost:5000/api/conversations
 Content-Type: application/json
 
 {

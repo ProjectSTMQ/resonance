@@ -1,31 +1,35 @@
 import express from 'express';
-const app = express();
 import dotenv from 'dotenv';
 dotenv.config();
 import db from './config/database';
-const PORT = process.env.PORT;
 import cookieParser from 'cookie-parser';
-
+import path from 'path';
 import http from 'http';
+
+const PORT = process.env.PORT;
+const app = express();
 const server = http.createServer(app);
 // const WebSocket = require('ws');
 // const wss = new WebSocket.Server({ server });
-// import path from 'path';
+const reactApp = path.join(__dirname, '..', '..', 'client', 'dist'); // run `npm run build` in client folder to build
 
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.static(path.join('../client', 'dist'))); // Connect react app build - run `npm run build` in client folder
+app.use(express.static(reactApp));
 
 // Routes
-// const testRoute = require('./routes/TestRoute');
 import authRoute from './routes/AuthRoute';
 import conversationRoute from './routes/ConversationRoute';
 import messageRoute from './routes/MessageRoute';
-// app.use('/tests', testRoute);
-app.use('/auth', authRoute);
-app.use('/conversations', conversationRoute);
-app.use('/messages', messageRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/conversations', conversationRoute);
+app.use('/api/messages', messageRoute);
+
+// Routes for all other webpage get requests, react app handles with BrowserRouter
+app.get('*' , (req, res) => {
+    res.sendFile(reactApp);
+});
 
 // wss.on('connection', ws => {
 //     ws.on('message', async message => {

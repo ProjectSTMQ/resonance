@@ -1,21 +1,38 @@
 import express from 'express';
 import messageController from '../../controllers/MessageController';
+import { authUser } from '../../middlewares/Auth';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 
-// send a new message in a conversation
-router.post('/:conversationId', async (req, res) => {
-    // try {
-    //     const result = await messageController.sendMessage(req.params.conversationId, req.body);
-    //     res.json(result);
-    // } catch (err) {
-    //     res.status(500).send(err.message);
-    // }
+// create a new message in a conversation
+router.post('/:conversationId', authUser, async (req, res) => {
+    try {
+        const result = await messageController.createMessage({
+            messageId: uuidv4(),
+            conversationId: req.params.conversationId,
+            sender: req.username as string,
+            content: req.body.content,
+            timestamp: new Date()
+        });
+        res.json(result);
+    } catch (err: unknown) {
+        if(err instanceof Error){
+            res.status(500).send(err.message);
+        }
+    }
 });
 
 // get all messages in a conversation
-router.get('/:conversationId', async (req, res) => {
-    // TODO
+router.get('/:conversationId', authUser, async (req, res) => {
+    try {
+        const result = await messageController.getMessagesByConversationId(req.params.conversationId);
+        res.json(result);
+    } catch (err: unknown) {
+        if(err instanceof Error){
+            res.status(500).send(err.message);
+        }
+    }
 });
 
 // edit a message by its id

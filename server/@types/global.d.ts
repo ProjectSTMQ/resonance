@@ -30,8 +30,15 @@ declare global {
     interface IConversation {
         conversationId: string;
         participants: string[];
-        type: string;
+        // type: string;
         createdAt: Date;
+    }
+    interface IMessage {
+        messageId: string;
+        conversationId: string;
+        sender: string;
+        content: string;
+        timestamp: Date;
     }
 }
 

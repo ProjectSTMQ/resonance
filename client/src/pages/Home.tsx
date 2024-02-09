@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = 'http://localhost:5000/api';
 
 function Home() {
     const navigate = useNavigate();

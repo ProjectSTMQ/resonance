@@ -31,7 +31,14 @@ router.get('/', authUser, async (req, res) => {
 
 // get a specific conversation by its id
 router.get('/:conversationId', async (req, res) => {
-    // TODO
+    try {
+        const result = await conversationController.getConversationById(req.params.conversationId);
+        res.json(result);
+    } catch (err: unknown) {
+        if(err instanceof Error){
+            res.status(500).send(err.message);
+        }
+    }
 });
 
 export default router;

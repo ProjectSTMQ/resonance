@@ -16,6 +16,23 @@ declare global {
             username?: String
         }
     }
+
+    // Custom interfaces for interacting with MongoDB models
+    interface IUser {
+        username: string;
+        password: string;
+    }
+    interface ISession {
+        sessionId: string;
+        username: string;
+        lastAccessed: Date;
+    }
+    interface IConversation {
+        conversationId: string;
+        participants: string[];
+        type: string;
+        createdAt: Date;
+    }
 }
 
 export {}

@@ -1,6 +1,6 @@
 import ConversationModel from '../models/Conversation';
 
-const createConversation = async (data: any) => {
+const createConversation = async (data: IConversation) => {
     if(data.participants.length === 2){
         data.type = "direct";
     } else {
@@ -16,7 +16,12 @@ const getConversationsByUsername = async (username: string) => {
     return await ConversationModel.find({ participants: username });
 };
 
+const getConversationById = async (conversationId: string) => {
+    return await ConversationModel.find({ conversationId: conversationId });
+};
+
 export default {
     createConversation,
-    getConversationsByUsername
+    getConversationsByUsername,
+    getConversationById
 };

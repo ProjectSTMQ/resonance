@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
 const messageSchema = new mongoose.Schema({
-    messageId: { type: mongoose.Schema.Types.ObjectId },
-    conversationId: { type: mongoose.Schema.Types.ObjectId }, // References the conversation collection
+    messageId: {
+        type: String,
+        unique: true
+    },
+    conversationId: String, // Indicates what conversation does this message belong to
     sender: String, // User ID
     content: String,
     timestamp: Date

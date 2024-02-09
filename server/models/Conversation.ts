@@ -1,7 +1,10 @@
 import mongoose from 'mongoose';
 
 const conversationSchema = new mongoose.Schema({
-    // conversationId: mongoose.ObjectId,
+    conversationId: {
+        type: String,
+        unique: true
+    },
     participants: [String], // User IDs
     type: String, // "direct" or "group"
     createdAt: Date

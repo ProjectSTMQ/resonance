@@ -4,9 +4,10 @@ import { authUser } from '../../middlewares/Auth';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
+router.use(authUser); // All routes in this file require authentication
 
 // create a new message in a conversation
-router.post('/:conversationId', authUser, async (req, res) => {
+router.post('/:conversationId', async (req, res) => {
     try {
         const result = await messageController.createMessage({
             messageId: uuidv4(),
@@ -24,7 +25,7 @@ router.post('/:conversationId', authUser, async (req, res) => {
 });
 
 // get all messages in a conversation
-router.get('/:conversationId', authUser, async (req, res) => {
+router.get('/:conversationId', async (req, res) => {
     try {
         const result = await messageController.getMessagesByConversationId(req.params.conversationId);
         res.json(result);

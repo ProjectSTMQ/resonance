@@ -21,6 +21,7 @@ declare global {
     interface IUser {
         username: string;
         password: string;
+        isAdmin: boolean;
     }
     interface ISession {
         sessionId: string;
@@ -30,7 +31,8 @@ declare global {
     interface IConversation {
         conversationId: string;
         participants: string[];
-        // type: string;
+        name: string;
+        type: string;
         createdAt: Date;
     }
     interface IMessage {

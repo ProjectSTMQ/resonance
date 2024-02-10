@@ -5,7 +5,7 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const sessionId = req.cookies.sessionId;
         if (!sessionId) {
-            return res.status(401).send('Unauthorized');
+            res.status(401).send('Unauthorized');
         }
 
         // get username from database
@@ -13,14 +13,16 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
         if (userSession && typeof userSession.username === 'string') {
             req.username = userSession.username;
         } else {
-            return res.status(401).send('Unauthorized');
+            res.status(401).send('Unauthorized');
         }
         
         next();
     } catch (err: unknown) {
         console.error(err);
-        return res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Error');
     }
 };
 
-export { authUser };
+export { 
+    authUser
+};

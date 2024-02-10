@@ -36,13 +36,13 @@ router.get('/:conversationId', authUser, async (req, res) => {
 });
 
 // edit a message by its id
-router.put('/:messageId', async (req, res) => {
-    // TODO, lower priority
-});
+// router.put('/:messageId', async (req, res) => {
+//     // TODO, lower priority
+// });
 
 // delete a message by its id
-router.delete('/:messageId', async (req, res) => {
-    // TODO, lower priority
-});
+// router.delete('/:messageId', async (req, res) => {
+//     // TODO, lower priority
+// });
 
 export default router;

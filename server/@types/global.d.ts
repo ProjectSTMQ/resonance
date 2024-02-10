@@ -13,7 +13,7 @@ declare global {
     // For extending req object with username property in Auth middleware - https://stackoverflow.com/q/37377731
     namespace Express {
         interface Request {
-            username?: String
+            username?: string
         }
     }
 
@@ -42,4 +42,4 @@ declare global {
     }
 }
 
-export {}
+export {};

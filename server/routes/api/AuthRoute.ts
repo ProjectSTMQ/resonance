@@ -11,7 +11,7 @@ router.post('/register', async (req, res) => {
         res.status(201).send();
     } catch (err: unknown) {
         if(err instanceof Error){
-            console.log(err.message)
+            console.log(err.message);
         }
         res.status(400).send();
     }

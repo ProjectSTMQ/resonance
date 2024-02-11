@@ -38,9 +38,9 @@ router.get('/', async (req, res) => {
 });
 
 // join a conversation
-router.post('/:conversationId/join', async (req, res) => {
+router.post('/join', async (req, res) => {
     try {
-        const result = await conversationController.joinConversation(req.params.conversationId, req.username as string);
+        const result = await conversationController.joinConversation(req.body.conversationId, req.username as string);
         res.json(result);
     } catch (err: unknown) {
         if(err instanceof Error){
@@ -50,9 +50,9 @@ router.post('/:conversationId/join', async (req, res) => {
 });
 
 // leave a conversation
-router.post('/:conversationId/leave', async (req, res) => {
+router.post('/leave', async (req, res) => {
     try {
-        const result = await conversationController.leaveConversation(req.params.conversationId, req.username as string);
+        const result = await conversationController.leaveConversation(req.body.conversationId, req.username as string);
         res.json(result);
     } catch (err: unknown) {
         if(err instanceof Error){

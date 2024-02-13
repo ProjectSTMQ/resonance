@@ -4,13 +4,13 @@ const createConversation = async (data: IConversation) => {
     return await ConversationModel.create(data);
 };
 
-const getConversations = async () => {
+const getAll = async () => {
     return await ConversationModel.find();
 };
 
-// const getConversationsByUsername = async (username: string) => {
-//     return await ConversationModel.find({ participants: username });
-// };
+const getConversation = async (conversationId: string) => {
+    return await ConversationModel.findOne({ conversationId: conversationId });
+};
 
 const joinConversation = async (conversationId: string, username: string) => {
     const conversation = await ConversationModel.findOne({ conversationId });
@@ -31,8 +31,8 @@ const leaveConversation = async (conversationId: string, username: string) => {
 
 export default {
     createConversation,
-    getConversations,
-    // getConversationsByUsername,
+    getAll,
+    getConversation,
     joinConversation,
     leaveConversation
 };

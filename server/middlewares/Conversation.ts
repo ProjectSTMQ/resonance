@@ -27,7 +27,7 @@ const createPermissions = async (req: Request, res: Response, next: NextFunction
             if(user && user.isAdmin === true) {
                 next();
             } else {
-                res.status(403).send('Forbidden');
+                res.status(403).send('Forbidden. No permission to create pinned conversation.');
             }
         }
         else {

@@ -28,7 +28,7 @@ router.post('/', validateParams, createPermissions, async (req, res) => {
 // get all conversations (public listing)
 router.get('/', async (req, res) => {
     try {
-        const result = await conversationController.getConversations();
+        const result = await conversationController.getAll();
         res.json(result);
     } catch (err: unknown) {
         if(err instanceof Error){

@@ -1,10 +1,11 @@
 import express from 'express';
 import messageController from '../../controllers/MessageController';
-import { authUser } from '../../middlewares/Auth';
+import { authUser, assertParticipant } from '../../middlewares/Auth';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 router.use(authUser); // All routes in this file require authentication
+router.use(assertParticipant); // All routes in this file require the user to be a participant in the conversation
 
 // create a new message in a conversation
 router.post('/', async (req, res) => {

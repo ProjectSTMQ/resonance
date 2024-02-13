@@ -1,5 +1,6 @@
 import sessionController from '../controllers/SessionController';
 import { Request, Response, NextFunction } from 'express';
+import conversationController from '../controllers/ConversationController';
 
 const authUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -23,6 +24,25 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
+const assertParticipant = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const conversationId = req.body.conversationId;
+        const username = req.username as string;
+
+        const conversation = await conversationController.getConversation(conversationId);
+        if (!conversation || !conversation.participants.includes(username)) {
+            res.status(403).send('Forbidden. You are not a member of this conversation.');
+            return;
+        }
+
+        next();
+    } catch (err: unknown) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 export { 
-    authUser
+    authUser,
+    assertParticipant
 };

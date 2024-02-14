@@ -48,7 +48,7 @@ const Chat: React.FC = () => {
 
   // to be replaced with data from the server api call - needs to match backend database model
   // to be replaced with data from the server api call
-  const [conversations, setConversations] = useState<conversation[]>([
+  const [conversations] = useState<conversation[]>([
     { convoId : "1", imgSrc: "http://via.placeholder.com/150", convoName: "John Doe", time: "12:00", messagePreview: "this is a preview" },
     { convoId : "2",  imgSrc: "http://via.placeholder.com/150", convoName: "John Doe", time: "12:00", messagePreview: "this is a preview" }
   ]);

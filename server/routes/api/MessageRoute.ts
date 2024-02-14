@@ -1,16 +1,18 @@
 import express from 'express';
 import messageController from '../../controllers/MessageController';
-import { authUser } from '../../middlewares/Auth';
+import { authUser, assertParticipant } from '../../middlewares/Auth';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
+router.use(authUser); // All routes in this file require authentication
+router.use(assertParticipant); // All routes in this file require the user to be a participant in the conversation
 
 // create a new message in a conversation
-router.post('/:conversationId', authUser, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const result = await messageController.createMessage({
             messageId: uuidv4(),
-            conversationId: req.params.conversationId,
+            conversationId: req.body.conversationId,
             sender: req.username as string,
             content: req.body.content,
             timestamp: new Date()
@@ -24,9 +26,9 @@ router.post('/:conversationId', authUser, async (req, res) => {
 });
 
 // get all messages in a conversation
-router.get('/:conversationId', authUser, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const result = await messageController.getMessagesByConversationId(req.params.conversationId);
+        const result = await messageController.getMessagesByConversationId(req.body.conversationId);
         res.json(result);
     } catch (err: unknown) {
         if(err instanceof Error){

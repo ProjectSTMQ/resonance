@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 const createUser = async (data: IUser) => {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(data.password, salt);
-    return await UserModel.create({ username: data.username, password: hashedPassword });
+    return await UserModel.create({ username: data.username, password: hashedPassword, isAdmin: false});
 };
 
 const loginUser = async (data: IUser) => {

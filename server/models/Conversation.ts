@@ -6,7 +6,8 @@ const conversationSchema = new mongoose.Schema({
         unique: true
     },
     participants: [String], // User IDs
-    // type: String, // indicate pinned or custom/public
+    name: String,
+    type: String, // indicate "pinned" or "custom"
     createdAt: Date
     // updatedAt: Date
 });

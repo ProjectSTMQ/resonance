@@ -1,4 +1,4 @@
-name: Lint
+name: Build & Lint
 
 on:
   push:
@@ -9,9 +9,9 @@ on:
       - main
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
-
+    
     strategy:
       matrix:
         node-version: [20]
@@ -30,7 +30,36 @@ jobs:
       run: |
         cd ${{ matrix.directory }}
         npm ci
-        
+
+    - name: Build ${{ matrix.directory }}
+      run: |
+        cd ${{ matrix.directory }}
+        npm run build
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [20]
+        directory: ['client', 'server']
+
+    needs: build
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: |
+        cd ${{ matrix.directory }}
+        npm ci
+
     - name: Run linter
       run: |
         cd ${{ matrix.directory }}

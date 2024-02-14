@@ -1,11 +1,12 @@
 import sessionController from '../controllers/SessionController';
 import { Request, Response, NextFunction } from 'express';
+import conversationController from '../controllers/ConversationController';
 
 const authUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const sessionId = req.cookies.sessionId;
         if (!sessionId) {
-            return res.status(401).send('Unauthorized');
+            res.status(401).send('Unauthorized');
         }
 
         // get username from database
@@ -13,14 +14,35 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
         if (userSession && typeof userSession.username === 'string') {
             req.username = userSession.username;
         } else {
-            return res.status(401).send('Unauthorized');
+            res.status(401).send('Unauthorized');
         }
         
         next();
     } catch (err: unknown) {
         console.error(err);
-        return res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Error');
     }
 };
 
-export { authUser };
+const assertParticipant = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const conversationId = req.body.conversationId;
+        const username = req.username as string;
+
+        const conversation = await conversationController.getConversation(conversationId);
+        if (!conversation || !conversation.participants.includes(username)) {
+            res.status(403).send('Forbidden. You are not a member of this conversation.');
+            return;
+        }
+
+        next();
+    } catch (err: unknown) {
+        console.error(err);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+export { 
+    authUser,
+    assertParticipant
+};

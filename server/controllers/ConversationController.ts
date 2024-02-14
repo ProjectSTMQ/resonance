@@ -61,7 +61,6 @@ export default {
     getAll,
     getConversation,
     conversationWebsocketController,
-
     joinConversation,
     leaveConversation
 };

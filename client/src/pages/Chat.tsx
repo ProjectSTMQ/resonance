@@ -66,11 +66,9 @@ const Chat: React.FC = () => {
  
   
   useEffect(() => {
-    
     console.log("User: "+ username + "trying to join room: "+ convoId);
     socket.emit("joinRoom", {username, convoId});
-   
-  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

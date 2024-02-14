@@ -6,11 +6,12 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import http from 'http';
 import conversationController from './controllers/ConversationController';
+import { Server } from 'socket.io';
 
 const PORT = process.env.PORT;
 const app = express();
 const server = http.createServer(app);
-const { Server } = require("socket.io");
+
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
 const reactAppBuild = path.join(__dirname, '..', '..', 'client', 'dist'); // run `npm run build` in client folder to build
 

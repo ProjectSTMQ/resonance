@@ -50,7 +50,7 @@ const conversationWebsocketController = (socket : Socket, io : Server) => {
 
     socket.on('disconnect', (reason) => {
         console.log(`[${socket.id}] a user disconnected with reason: ${reason}`);
-      });
+    });
 
    
 

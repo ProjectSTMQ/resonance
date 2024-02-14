@@ -12,7 +12,7 @@ import io from "socket.io-client";
 import { useState , useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export const socket = io("http://localhost:5000" , { transports : ['websocket'] });
+const socket = io("http://localhost:5000" , { transports : ['websocket'] });
 
 interface conversation {
   convoId : string
@@ -67,8 +67,8 @@ const Chat: React.FC = () => {
   
   useEffect(() => {
     
-      console.log("User: "+ username + "trying to join room: "+ convoId);
-      socket.emit("joinRoom", {username, convoId});
+    console.log("User: "+ username + "trying to join room: "+ convoId);
+    socket.emit("joinRoom", {username, convoId});
    
   
   }, []);

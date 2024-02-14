@@ -60,9 +60,7 @@ export default {
     createConversation,
     getAll,
     getConversation,
-    
     conversationWebsocketController,
-    // getConversationsByUsername,
     joinConversation,
     leaveConversation
 };

@@ -10,12 +10,9 @@ import conversationController from './controllers/ConversationController';
 const PORT = process.env.PORT;
 const app = express();
 const server = http.createServer(app);
-// const WebSocket = require('ws');
-// const wss = new WebSocket.Server({ server });
-const reactAppBuild = path.join(__dirname, '..', '..', 'client', 'dist'); // run `npm run build` in client folder to build
-
 const { Server } = require("socket.io");
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 5000 });
+const reactAppBuild = path.join(__dirname, '..', '..', 'client', 'dist'); // run `npm run build` in client folder to build
 
 // Middlewares
 app.use(express.json());
@@ -34,31 +31,11 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(reactAppBuild, 'index.html'));
 });
 
-
-
 io.on('connection', (socket : Socket) => {
-
-  
     //let controller handle everything
     conversationController.conversationWebsocketController(socket , io);
 
 });
-// wss.on('connection', ws => {
-//     ws.on('message', async message => {
-//         // Parse the message as JSON
-//         const data = JSON.parse(message);
-
-//         // Use the MessageController to save the message to the database
-//         const savedMessage = await MessageController.createMessage(data);
-
-//         // Broadcast the saved message to all connected clients
-//         wss.clients.forEach(client => {
-//             if (client.readyState === WebSocket.OPEN) {
-//                 client.send(JSON.stringify(savedMessage));
-//             }
-//         });
-//     });
-// });
 
 server.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

@@ -2,12 +2,13 @@
 
 interface ConversationProps {
     imgSrc: string;
-    username: string;
+    convoName: string;
     time: string;
-    message_preview: string;
+    messagePreview: string;
 }
 
-function Conversation({ imgSrc, username, time, message_preview}: ConversationProps) {
+  
+function Conversation({ imgSrc, convoName, time, messagePreview}: ConversationProps) {
     // const [isActive, setIsActive] = useState(false);
 
     // const handleClick = () => {
@@ -22,11 +23,11 @@ function Conversation({ imgSrc, username, time, message_preview}: ConversationPr
             </div>
             <div className="details">
                 <div className="listHead">
-                    <h4>{username}</h4>
+                    <h4>{convoName}</h4>
                     <p className="time">{time}</p>
                 </div>
                 <div className="message_preview">
-                    <p>{message_preview}</p>
+                    <p>{messagePreview}</p>
                     {/* <b>1</b> */}
                 </div>
             </div>

@@ -45,15 +45,28 @@ function Home() {
                     )}
                 </div>
                 <div className="content">
-                    <h1>Welcome to the Home Page</h1>
-                    <p>
-                        This is a simple home page placeholder.
-                    </p>
-                    <div>
-                        <Link to="/home">
-                            <button><span></span>Home</button>
-                        </Link>
-                    </div>
+                    <h1>Welcome to Resonance</h1>
+                    {/* Logged out */}
+                    {!document.cookie.includes('sessionId') && (
+                        <>
+                            <p>
+                                Please login or register to continue.
+                            </p>
+                        </>
+                    )}
+                    {/* Logged in */}
+                    {document.cookie.includes('sessionId') && (
+                    <>
+                        <p>
+                            Check out the lobby listings to get started!
+                        </p>
+                        <div>
+                            <Link to="/listings">
+                                <button><span></span>Listings</button>
+                            </Link>
+                        </div>
+                    </>
+                    )}
                 </div>
             </div>
         </div>

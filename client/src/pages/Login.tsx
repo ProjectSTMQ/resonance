@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
-const API_URL = 'http://localhost:5000/api';
+import api from '../ApiCalls';
 
 function Login() {
     const navigate = useNavigate();
@@ -10,25 +9,19 @@ function Login() {
     const [password, setPassword] = useState('');
     const [isPending, setIsPending] = useState(false);
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setIsPending(true);
 
         const data = { username, password};
-
-        fetch(`${API_URL}/auth/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        }).then((res) => {
-            setIsPending(false);
-            if (res.status === 200) {
-                console.log('Login successful');
-                navigate('/');
-            } else {
-                console.log('Login failed');
-            }
-        });
+        const res = await api.login(data);
+        setIsPending(false);
+        if (res.status === 200) {
+            console.log('Login successful');
+            navigate('/');
+        } else {
+            console.log('Login failed');
+        }
     };
 
     return (

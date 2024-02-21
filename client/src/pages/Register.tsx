@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
-const API_URL = 'http://localhost:5000/api';
+import api from '../ApiCalls';
 
 function Register() {
     const navigate = useNavigate();
@@ -11,7 +10,7 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isPending, setIsPending] = useState(false);
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setIsPending(true);
         
@@ -23,19 +22,14 @@ function Register() {
 
         const data = { username, password};
 
-        fetch(`${API_URL}/auth/register`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        }).then((res) => {
-            setIsPending(false);
-            if (res.status === 201) {
-                console.log('Registration successful');
-                navigate('/login');
-            } else {
-                console.log('Registration failed');
-            }
-        });
+        const res = await api.register(data);
+        setIsPending(false);
+        if (res.status === 201) {
+            console.log('Registration successful');
+            navigate('/login');
+        } else {
+            console.log('Registration failed');
+        }
     };
 
     return (

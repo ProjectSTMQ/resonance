@@ -1,10 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../UserContext';
 
 const API_URL = 'http://localhost:5000/api';
 
 function Login() {
     const navigate = useNavigate();
+    const {setUserInfo} = useContext(UserContext);
+
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -24,6 +27,11 @@ function Login() {
             setIsPending(false);
             if (res.status === 200) {
                 console.log('Login successful');
+                setUserInfo({
+                    username: username,
+                    password: password,
+                    isAdmin: false
+                });
                 navigate('/');
             } else {
                 console.log('Login failed');

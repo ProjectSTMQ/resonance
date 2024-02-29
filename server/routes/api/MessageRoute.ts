@@ -5,10 +5,10 @@ import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 router.use(authUser); // All routes in this file require authentication
-router.use(assertParticipant); // All routes in this file require the user to be a participant in the conversation
+router.use('/:convoId', assertParticipant); 
 
 // create a new message in a conversation
-router.post('/', async (req, res) => {
+router.post('/:convoId', async (req, res) => {
     try {
         const result = await messageController.createMessage({
             messageId: uuidv4(),
@@ -26,10 +26,13 @@ router.post('/', async (req, res) => {
 });
 
 // get all messages in a conversation
-router.get('/', async (req, res) => {
+router.get('/:convoId', async (req, res) => {
+    
     try {
-        const result = await messageController.getMessagesByConversationId(req.body.conversationId);
+
+        const result = await messageController.getMessagesByConversationId(req.params.convoId!);
         res.json(result);
+
     } catch (err: unknown) {
         if(err instanceof Error){
             res.status(500).send(err.message);

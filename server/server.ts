@@ -7,6 +7,7 @@ import path from 'path';
 import http from 'http';
 import conversationController from './controllers/ConversationController';
 import { Server } from 'socket.io';
+import cors from 'cors';
 
 const PORT = process.env.PORT;
 const app = express();
@@ -19,7 +20,7 @@ const reactAppBuild = path.join(__dirname, '..', '..', 'client', 'dist'); // run
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(reactAppBuild));
-
+app.use(cors())
 // Api routes
 import apiRoute from './routes/ApiRoute';
 import { Socket } from 'socket.io';

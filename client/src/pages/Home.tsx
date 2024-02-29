@@ -14,6 +14,7 @@ function Home() {
         }).then((res) => {
             if (res.status === 200) {
                 console.log('Logout successful');
+               
                 navigate('/');
             } else {
                 console.log('Logout failed');

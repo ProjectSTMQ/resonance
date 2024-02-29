@@ -3,10 +3,8 @@ import userController from '../controllers/UserController';
 
 const validateParams = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const participants = req.body.participants;
-        if (!Array.isArray(participants) || participants.some((participant) => typeof participant !== 'string')) {
-            res.status(400).send('Invalid participants');
-        } else if (typeof req.body.name !== 'string') {
+     
+        if (typeof req.body.name !== 'string') {
             res.status(400).send('Invalid name');
         } else if (req.body.type !== 'pinned' && req.body.type !== 'custom') {
             res.status(400).send('Invalid type');

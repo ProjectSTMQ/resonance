@@ -34,7 +34,7 @@ const conversationWebsocketController = (socket : Socket, io : Server) => {
     console.log(`[${socket.id}] a user connected to server`);
 
     socket.on('joinRoom' , ({username, convoId}) =>{
-        console.log('User: '+ username + 'has joined room: '+ convoId);
+        console.log('User: '+ username + ' has joined room: '+ convoId);
         socket.join(convoId);
         
         socket.on('newMessage' , (message : IMessage) => {

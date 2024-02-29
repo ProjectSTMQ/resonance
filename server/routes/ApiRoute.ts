@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.use('/auth', authRoute);
 router.use('/conversations', conversationRoute);
-router.use('/messages', messageRoute);
+router.use('/messages/:convoId', messageRoute);
 
 export default router;

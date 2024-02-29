@@ -9,7 +9,7 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
             res.status(401).send('Unauthorized');
         }
         else{
-             // get username from database
+            // get username from database
             const userSession = await sessionController.getSession(sessionId);
             if (userSession && typeof userSession.username === 'string') {
                 req.username = userSession.username;

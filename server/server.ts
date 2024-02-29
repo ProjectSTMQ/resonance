@@ -20,7 +20,7 @@ const reactAppBuild = path.join(__dirname, '..', '..', 'client', 'dist'); // run
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(reactAppBuild));
-app.use(cors())
+app.use(cors());
 // Api routes
 import apiRoute from './routes/ApiRoute';
 import { Socket } from 'socket.io';

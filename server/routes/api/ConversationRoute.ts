@@ -18,7 +18,7 @@ router.post('/', validateParams, createPermissions, async (req, res) => {
             type: req.body.type,
             createdAt: new Date()
         });
-        console.log(result)
+        console.log(result);
         res.json(result);
     } catch (err: unknown) {
         if(err instanceof Error){

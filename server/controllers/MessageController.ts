@@ -8,7 +8,7 @@ const getMessagesByConversationId = async (conversationId: string) => {
     return await MessageModel.find({ conversationId: conversationId });
 };
 
-export default{
+export default {
     createMessage,
     getMessagesByConversationId
 };

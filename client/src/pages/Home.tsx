@@ -1,25 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png';
-
-const API_URL = 'http://localhost:5000/api';
+import api from '../ApiCalls';
 
 function Home() {
     const navigate = useNavigate();
 
-    function handleLogout() {
-        fetch(`${API_URL}/auth/logout`, {
-            method: "POST",
-            // headers: { "Content-Type": "application/json" },
-            // body: JSON.stringify(data)
-        }).then((res) => {
-            if (res.status === 200) {
-                console.log('Logout successful');
-               
-                navigate('/');
-            } else {
-                console.log('Logout failed');
-            }
-        });
+    async function handleLogout() {
+        const res = await api.logout();
+        if (res.status === 200) {
+            console.log('Logout successful');
+            navigate('/');
+        } else {
+            console.log('Logout failed');
+        }
     }
 
 

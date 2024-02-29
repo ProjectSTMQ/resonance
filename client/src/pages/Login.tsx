@@ -3,8 +3,6 @@ import { useContext, useState } from 'react';
 import { UserContext } from '../UserContext';
 import api from '../ApiCalls';
 
-const API_URL = 'http://localhost:5000/api';
-
 
 
 function Login() {

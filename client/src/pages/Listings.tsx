@@ -31,7 +31,7 @@ function Listings() {
         return response;
     }
 
-        //@ts-ignore
+        
     async function createConvo(convoName : string){
         
         const data = {name : convoName, type:'custom'};
@@ -60,8 +60,8 @@ function Listings() {
         event.preventDefault();
         setIsPending(true);
      
-        var res = await joinConvo(convoId);
-        var data;
+        let res = await joinConvo(convoId);
+        let data;
         
        
 

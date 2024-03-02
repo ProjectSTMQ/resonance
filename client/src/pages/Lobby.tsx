@@ -25,12 +25,13 @@ interface conversation {
   messagePreview : string
 }
 
-interface message {
-  sender : string
-  messageId : string
-  content : string
-  time : string
- 
+
+interface IMessage {
+  messageId: string;
+  conversationId: string;
+  sender: string;
+  content: string;
+  timestamp: Date;
 }
 
 socket.on("connect", () => {
@@ -41,10 +42,6 @@ socket.on("connect", () => {
 socket.on("connectionConfirm", (socketid : string) => {
 console.log( "Your id is: " + socketid);
 });
-
-
-
-
 
 
 const Lobby: React.FC = () => {
@@ -69,7 +66,7 @@ const Lobby: React.FC = () => {
     return response;
   }
 
-  async function getMessages(convoId: string){
+  async function getMessages(){
         
     const response = await fetch(`${API_URL}/messages/`+convoId, {
         method: "GET",
@@ -94,7 +91,7 @@ const Lobby: React.FC = () => {
     { convoId : "2",  imgSrc: "http://via.placeholder.com/150", convoName: "John Doe", time: "12:00", messagePreview: "this is a preview" }
   ]);
 
-  const [messages, setMessages] = useState<message[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
    
   const {userInfo} = useContext(UserContext);
 
@@ -111,10 +108,12 @@ const Lobby: React.FC = () => {
       
       console.log("User: "+ username + "trying to join room: "+ convoId);
       socket.emit("joinRoom", {username, convoId});
-      const response = await getMessages(convoId);
+      const response = await getMessages();
       console.log(response);
-      const convoData = await response.json();
-      console.log(convoData);
+      const convoMessages = await response.json();
+    
+      setMessages(convoMessages);
+      
     })();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,7 +125,7 @@ const Lobby: React.FC = () => {
   //else one will get added per render?
   useEffect(() => {
 
-    socket.on("messageUpdate" , (newMessage : message) => { 
+    socket.on("messageUpdate" , (newMessage : IMessage) => { 
       console.log("Dab");       
       setMessages([
         ...messages,
@@ -143,17 +142,18 @@ const Lobby: React.FC = () => {
 
     if(input){
 
-      const newMessage : message = {
-        sender : socket.id!,
-        messageId : "5",
+      const newMessage : IMessage = {
+        sender : username,
+        conversationId: convoId,
+        messageId : "",
         content : input,
-        time : username,
+        timestamp : new Date()
 
       }
 
       const response = await sendMessage(input);
       socket.emit("newMessage" , newMessage);
-      console.log(newMessage);
+
       console.log(response);
       setInput("");
     }
@@ -164,8 +164,6 @@ const Lobby: React.FC = () => {
     setInput(e.currentTarget.value);
    
   }
-
-
 
 
   return (
@@ -188,10 +186,13 @@ const Lobby: React.FC = () => {
             <ChatHeader imgSrc="http://via.placeholder.com/150" title="<CURRENT USER/GROUP NAME>"/>
             <div className="chatbox">
               {messages.map((message , index) => {
-                if (message.sender === socket.id) {
-                  return <MyMessage key = {index} content={message.content} time={message.time} />;
-                } else {
-                  return <FromMessage key = {index} content={message.content} time={message.time} />;
+  
+                
+                if (message.sender === username) {
+                  return <MyMessage key = {index} content={message.content} time={new Date(message.timestamp)} />;
+                } 
+                else {
+                  return <FromMessage key = {index} content={message.content} time={new Date(message.timestamp)} />;
                 }
               })}
              

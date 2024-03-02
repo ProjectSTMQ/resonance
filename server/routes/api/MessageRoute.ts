@@ -8,7 +8,7 @@ router.use(authUser); // All routes in this file require authentication
 router.use('/:convoId', assertParticipant); 
 
 // create a new message in a conversation
-router.post('/:convoId', async (req, res) => {
+router.post( '/:convoId', async (req, res) => {
     try {
         const result = await messageController.createMessage({
             messageId: uuidv4(),

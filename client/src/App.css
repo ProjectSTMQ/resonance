@@ -692,7 +692,7 @@ body {
     }
 
     .message p::before {
-        content: '';
+       
         position: absolute;
         top: 0;
         right: -12px;
@@ -722,7 +722,7 @@ body {
     }
 
     .from_message p::before {
-        content: '';
+    
         position: absolute;
         top: 0;
         left: -12px;

@@ -3,8 +3,7 @@ import MenuHeader from '../components/MenuHeader';
 import Search from '../components/SearchBox';
 import Conversation from '../components/Conversation';
 import ChatHeader from '../components/ChatHeader';
-import MyMessage from '../components/MyMessage';
-import FromMessage from '../components/FromMessage';
+
 import IonIcon from '@reacticons/ionicons';
 
 import io from "socket.io-client";
@@ -131,13 +130,7 @@ const Chat: React.FC = () => {
           <div className="rightSide">
             <ChatHeader imgSrc="http://via.placeholder.com/150" title="<CURRENT USER/GROUP NAME>"/>
             <div className="chatbox">
-              {messages.map((message , index) => {
-                if (message.sender === socket.id) {
-                  return <MyMessage key = {index} content={message.content} time={message.time} />;
-                } else {
-                  return <FromMessage key = {index} content={message.content} time={message.time} />;
-                }
-              })}
+              
              
             </div>
             <div className="chatbox_input">

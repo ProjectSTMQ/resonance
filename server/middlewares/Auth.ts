@@ -30,8 +30,6 @@ const authUser = async (req: Request, res: Response, next: NextFunction) => {
 const assertParticipant = async (req: Request, res: Response, next: NextFunction) => {
     try {
         //how to get param in middleware
-        res.status(403).json('Forbidden. You are not a member of this conversation. Sent convoId=');
-
         const conversationId = req.params.convoId ||  req.body.conversationId;
         const username = req.username as string;
 

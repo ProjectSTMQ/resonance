@@ -23,6 +23,7 @@ function Login() {
         setIsPending(false);
         if (res.status === 200) {
             console.log('Login successful');
+            sessionStorage.setItem('username', username);
             setUserInfo({
                 username: username,
                 password: password,

@@ -24,8 +24,29 @@ const register = async (data: unknown) => {
     })
 }
 
+const  sendMessage = async(message: string, convoId: string) => {
+        
+    const data = { conversationId : convoId, content: message};
+    return await fetch(`${API_URL}/messages/${convoId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+  }
+
+const getMessages = async (convoId : string) => {
+        
+    return await fetch(`${API_URL}/messages/${convoId}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" }
+    });
+  }
+
 export default { 
     login,
     logout,
-    register
+    register,
+    sendMessage,
+    getMessages
 };

@@ -8,6 +8,7 @@ function Home() {
     async function handleLogout() {
         const res = await api.logout();
         if (res.status === 200) {
+            sessionStorage.clear();
             console.log('Logout successful');
             navigate('/');
         } else {

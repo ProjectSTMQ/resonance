@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+//import React, { useContext } from 'react';
+//import { UserContext } from '../UserContext';
 import MenuHeader from '../components/MenuHeader';
 import Search from '../components/SearchBox';
 import Conversation from '../components/Conversation';
@@ -6,14 +7,13 @@ import ChatHeader from '../components/ChatHeader';
 import MyMessage from '../components/MyMessage';
 import FromMessage from '../components/FromMessage';
 import IonIcon from '@reacticons/ionicons';
-
+import api from '../ApiCalls';
 import io from "socket.io-client";
 
 import { useState , useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { UserContext } from '../UserContext';
 
-const API_URL = 'http://localhost:5000/api';
+
 
 const socket = io("http://localhost:5000" , { transports : ['websocket'] });
 
@@ -46,44 +46,6 @@ console.log( "Your id is: " + socketid);
 
 const Lobby: React.FC = () => {
 
-  async function sendMessage(message: string){
-        
-    const data = { conversationId : convoId, content: message};
-    const response = await fetch(`${API_URL}/messages/`+convoId, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-    });
-
-    if (response.status === 200) {
-        console.log('Send successful');
-        //navigate('/');
-    }
-    else{
-        console.log('Send failed');
-    }
-
-    return response;
-  }
-
-  async function getMessages(){
-        
-    const response = await fetch(`${API_URL}/messages/`+convoId, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-    });
-
-    if (response.status === 200) {
-        console.log('Get successful');
-        //navigate('/');
-    }
-    else{
-        console.log('Get failed');
-    }
-
-    return response;
-  }
-
   // to be replaced with data from the server api call - needs to match backend database model
   // to be replaced with data from the server api call
   const [conversations] = useState<conversation[]>([
@@ -93,14 +55,14 @@ const Lobby: React.FC = () => {
 
   const [messages, setMessages] = useState<IMessage[]>([]);
    
-  const {userInfo} = useContext(UserContext);
+  //const {userInfo} = useContext(UserContext);
 
   const [input , setInput] = useState("");
 
   const location = useLocation();
 
   const convoId = location.state.convoId;
-  const username = userInfo.username;
+  const username = sessionStorage.getItem('username')!;
  
   
   useEffect(() => {
@@ -108,7 +70,7 @@ const Lobby: React.FC = () => {
       
       console.log("User: "+ username + "trying to join room: "+ convoId);
       socket.emit("joinRoom", {username, convoId});
-      const response = await getMessages();
+      const response = await api.getMessages(convoId);
       console.log(response);
       const convoMessages = await response.json();
     
@@ -151,7 +113,7 @@ const Lobby: React.FC = () => {
 
       }
 
-      const response = await sendMessage(input);
+      const response = await api.sendMessage(input, convoId);
       socket.emit("newMessage" , newMessage);
 
       console.log(response);
